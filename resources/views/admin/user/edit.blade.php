@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 @extends('admin.lauouts.admin.app')
 @section('title', 'Edit User')
 @section('content')
+=======
+@extends('layouts.admin.app')
+@section('title', 'Edit User')
+@section('content')
+
+>>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
     <div class="py-4">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
@@ -18,6 +25,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Edit User</li>
             </ol>
         </nav>
+<<<<<<< HEAD
         <div class="d-flex justify-content-between w-100 flex-wrap">
             <div class="mb-3 mb-lg-0">
                 <h1 class="h4">Edit User</h1>
@@ -25,6 +33,18 @@
             </div>
             <div>
                 <a href="#" class="btn btn-primary"><i class="far fa-question-circle me-1"></i> Kembali</a>
+=======
+
+        <div class="d-flex justify-content-between w-100 flex-wrap">
+            <div class="mb-3 mb-lg-0">
+                <h1 class="h4">Edit User</h1>
+                <p class="mb-0">Form untuk mengubah data pengguna.</p>
+            </div>
+            <div>
+                <a href="{{ route('user.index') }}" class="btn btn-primary">
+                    <i class="far fa-question-circle me-1"></i> Kembali
+                </a>
+>>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
             </div>
         </div>
     </div>
@@ -33,6 +53,7 @@
         <div class="col-12 mb-4">
             <div class="card border-0 shadow components-section">
                 <div class="card-body">
+<<<<<<< HEAD
                     <form action={{ route('user.update', $dataUser->user_id) }} method="POST">
                         @csrf
                         @method('PUT')
@@ -67,13 +88,92 @@
                                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                     <a href="{{ route('user.index') }}"
                                         class="btn btn-outline-secondary ms-2">Batal</a>
+=======
+
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('user.update', $dataUser->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="row mb-4">
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Nama</label>
+                                    <input type="text" id="name" name="name"
+                                        class="form-control @error('name') is-invalid @enderror"
+                                        value="{{ old('name', $dataUser->name) }}" required>
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="text" id="email" name="email"
+                                        class="form-control @error('email') is-invalid @enderror"
+                                        value="{{ old('email', $dataUser->email) }}" required>
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password (Opsional)</label>
+                                    <input type="password" id="password" name="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        placeholder="Isi jika ingin mengganti password">
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                                    <input type="password" id="password_confirmation" name="password_confirmation"
+                                        class="form-control @error('password_confirmation') is-invalid @enderror"
+                                        placeholder="Ulangi password baru">
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="">
+                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                    <a href="{{ route('user.index') }}" class="btn btn-outline-secondary ms-2">Batal</a>
+>>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
+<<<<<<< HEAD
 
             </div>
         </div>
     </div>
+=======
+            </div>
+        </div>
+    </div>
+
+>>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
 @endsection

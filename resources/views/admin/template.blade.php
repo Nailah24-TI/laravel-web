@@ -97,9 +97,8 @@
                         <span class="sidebar-text">Dashboard</span>
                     </a>
                 </li>
-                <!-- Tambahkan blok kode ini -->
                 <li class="nav-item  active ">
-                    <a href="pelanggan.index" class="nav-link">
+                    <a href="{{ route('pelanggan.index') }}" class="nav-link">
                         <span class="sidebar-icon">
                             <svg class="icon icon-xs me-2" data-slot="icon" fill="none" stroke-width="1.5"
                                 stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
@@ -315,7 +314,6 @@
         </nav>
 
         @yield('content')
-
 
         <footer class="bg-white rounded shadow p-5 mb-4 mt-4">
             <div class="row">
