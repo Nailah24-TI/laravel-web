@@ -1,5 +1,5 @@
 <?php
-<<<<<<< HEAD
+<<  << <<< HEAD
 namespace App\Http\Controllers;
 use illuminate\Support\Facades\Hash;
 use App\models\User;
@@ -140,3 +140,5 @@ class UserController extends Controller
 
     }
 }
+<?php
+
