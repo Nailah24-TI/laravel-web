@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 @extends('admin.lauouts.admin.app')
 @section('title', 'Edit User')
 @section('content')
@@ -7,7 +7,6 @@
 @section('title', 'Edit User')
 @section('content')
 
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
     <div class="py-4">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
@@ -25,7 +24,6 @@
                 <li class="breadcrumb-item active" aria-current="page">Edit User</li>
             </ol>
         </nav>
-<<<<<<< HEAD
         <div class="d-flex justify-content-between w-100 flex-wrap">
             <div class="mb-3 mb-lg-0">
                 <h1 class="h4">Edit User</h1>
@@ -53,7 +51,7 @@
         <div class="col-12 mb-4">
             <div class="card border-0 shadow components-section">
                 <div class="card-body">
-<<<<<<< HEAD
+
                     <form action={{ route('user.update', $dataUser->user_id) }} method="POST">
                         @csrf
                         @method('PUT')
@@ -164,8 +162,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
-<<<<<<< HEAD
+                </
 
             </div>
         </div>
@@ -175,5 +172,4 @@
         </div>
     </div>
 
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
 @endsection

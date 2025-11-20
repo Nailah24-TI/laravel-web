@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+
 @extends('admin.layouts.admin.app')
-=======
 @extends('layouts.admin.app')
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
 @section('title', 'Edit Pelanggan')
 @section('content')
     <div class="py-4">
@@ -28,7 +26,7 @@
                 <p class="mb-0">Form untuk mengedit data pelanggan baru.</p>
             </div>
             <div>
-<<<<<<< HEAD
+
                 <a href="#" class="btn btn-primary"><i class="far fa-question-circle me-1"></i> Kembali</a>
             </div>
         </div>
