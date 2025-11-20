@@ -1,17 +1,10 @@
 <?php
-<<  << <<< HEAD
-namespace App\Http\Controllers;
-use illuminate\Support\Facades\Hash;
-use App\models\User;
-use Illuminate\Http\Request;
-=======
 
 namespace App\Http\Controllers;
 
-use App\models\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
 
 class UserController extends Controller
 {
@@ -21,10 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $data['dataUser'] = User::all();
-<<<<<<< HEAD
-=======
 
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
         return view('admin.user.index', $data);
     }
 
@@ -33,11 +23,7 @@ class UserController extends Controller
      */
     public function create()
     {
-<<<<<<< HEAD
-        return view('admin.user.create'); //
-=======
         return view('admin.user.create');
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
     }
 
     /**
@@ -46,13 +32,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-<<<<<<< HEAD
-        //dd($request->all());
-
-        $data['first_name'] = $request->nama;
-        $data['last_name']  = $request->email;
-        $data['password']   = Hash::make($request->password);
-=======
         // tambahkan validasi
         $request->validate([
             'name' => 'required|string|max:100',
@@ -65,7 +44,6 @@ class UserController extends Controller
         $data['name'] = $request->name;
         $data['email'] = $request->email;
         $data['password'] = Hash::make($request->password);
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
 
         User::create($data);
 
@@ -86,10 +64,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $dataUser = User::findOrFail($id);
-<<<<<<< HEAD
-=======
 
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
         return view('admin.user.edit', compact('dataUser'));
     }
 
@@ -98,17 +73,6 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-<<<<<<< HEAD
-        $user_id = $id;
-        $user    = User::findOrFail($user_id);
-
-        $data['nama']     = $request->nama;
-        $data['email']    = $request->email;
-        $data['password'] = Hash::make($request->password);
-
-        $user = User::findOrFail($id);
-        $user->update($request->all());
-=======
         $user = User::findOrFail($id);
 
         // Tambahkan validasi
@@ -124,7 +88,6 @@ class UserController extends Controller
 
         $user->update($data);
 
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
         return redirect()->route('user.index')->with('success', 'Perubahan Data Berhasil!');
     }
 
@@ -132,13 +95,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-<<<<<<< HEAD
-=======
 
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
         return redirect()->route('user.index')->with('success', 'Penghapusan Data Berhasil!');
 
     }
 }
-<?php
-
