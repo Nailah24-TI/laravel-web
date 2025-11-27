@@ -1,8 +1,3 @@
-
-@extends('admin.lauouts.admin.app')
-@section('title', 'Edit User')
-@section('content')
-=======
 @extends('layouts.admin.app')
 @section('title', 'Edit User')
 @section('content')
@@ -24,14 +19,6 @@
                 <li class="breadcrumb-item active" aria-current="page">Edit User</li>
             </ol>
         </nav>
-        <div class="d-flex justify-content-between w-100 flex-wrap">
-            <div class="mb-3 mb-lg-0">
-                <h1 class="h4">Edit User</h1>
-                <p class="mb-0">Form untuk mengedit data User baru.</p>
-            </div>
-            <div>
-                <a href="#" class="btn btn-primary"><i class="far fa-question-circle me-1"></i> Kembali</a>
-=======
 
         <div class="d-flex justify-content-between w-100 flex-wrap">
             <div class="mb-3 mb-lg-0">
@@ -42,7 +29,6 @@
                 <a href="{{ route('user.index') }}" class="btn btn-primary">
                     <i class="far fa-question-circle me-1"></i> Kembali
                 </a>
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
             </div>
         </div>
     </div>
@@ -52,46 +38,10 @@
             <div class="card border-0 shadow components-section">
                 <div class="card-body">
 
-                    <form action={{ route('user.update', $dataUser->user_id) }} method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="row mb-4">
-                            <div class="col-lg-4 col-sm-6">
-                                <!-- First Name -->
-                                <div class="mb-3">
-                                    <label for="nama" class="form-label">Nama</label>
-                                    <input type="text" id="nama" name="nama" class="form-control"
-                                        value="{{ $dataUser->nama }}">
-                                </div>
-
-
-
-                                <!-- Email -->
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="text" id="email" name="email" class="form-control"
-                                        value="{{ $dataUser->email }}">
-                                </div>
-
-                                <div class="col-lg-4 col-sm-6">
-
-                                <div class="mb-3">
-                                    <label for="birthday" class="form-label">Password</label>
-                                    <input type="date" id="birthday" name="password" class="form-control"
-                                        value=value="{{ $dataUser->password }}">
-                                </div>
-
-                                <!-- Buttons -->
-                                <div class="">
-                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                    <a href="{{ route('user.index') }}"
-                                        class="btn btn-outline-secondary ms-2">Batal</a>
-=======
-
                     @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
                     @endif
 
@@ -102,16 +52,19 @@
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
                     @endif
 
-                    <form action="{{ route('user.update', $dataUser->id) }}" method="POST">
+                    {{-- Form UPDATE + Upload Foto --}}
+                    <form action="{{ route('user.update', $dataUser->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
                         <div class="row mb-4">
                             <div class="col-lg-4 col-sm-6">
+
+                                {{-- Nama --}}
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Nama</label>
                                     <input type="text" id="name" name="name"
@@ -122,6 +75,7 @@
                                     @enderror
                                 </div>
 
+                                {{-- Email --}}
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="text" id="email" name="email"
@@ -131,9 +85,40 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+
+                                {{-- TAMBAHAN: Foto Profile --}}
+                                <div class="mb-3 mt-4">
+                                    <label class="form-label">Foto Profil</label>
+
+                                    {{-- Preview Foto --}}
+                                    <div class="mb-2">
+                                        @if ($dataUser->profile_picture)
+                                            <img id="previewImage"
+                                                src="{{ asset('storage/' . $dataUser->profile_picture) }}" width="100"
+                                                height="100" class="rounded-circle" style="object-fit: cover;">
+                                        @else
+                                            <img id="previewImage" src="https://via.placeholder.com/100" width="100"
+                                                height="100" class="rounded-circle">
+                                        @endif
+                                    </div>
+
+                                    {{-- Input Upload --}}
+                                    <input type="file"
+                                        class="form-control @error('profile_picture') is-invalid @enderror"
+                                        name="profile_picture" id="profile_picture" accept="image/*"
+                                        onchange="previewFile()">
+
+                                    @error('profile_picture')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
                             </div>
 
                             <div class="col-lg-4 col-sm-6">
+
+                                {{-- Password --}}
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password (Opsional)</label>
                                     <input type="password" id="password" name="password"
@@ -144,6 +129,7 @@
                                     @enderror
                                 </div>
 
+                                {{-- Konfirmasi Password --}}
                                 <div class="mb-3">
                                     <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                                     <input type="password" id="password_confirmation" name="password_confirmation"
@@ -154,22 +140,31 @@
                                     @enderror
                                 </div>
 
-                                <div class="">
-                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                {{-- Submit --}}
+                                <div class="mt-4">
+                                    <button type="submit" class="btn btn-primary">Simpan Perubahan!</button>
                                     <a href="{{ route('user.index') }}" class="btn btn-outline-secondary ms-2">Batal</a>
->>>>>>> 9b314858a1178f3c9bf2c563edbd1642f44e8c28
                                 </div>
+
                             </div>
                         </div>
                     </form>
-                </
 
-            </div>
-        </div>
-    </div>
-=======
+                </div>
             </div>
         </div>
     </div>
 
 @endsection
+
+{{-- Preview Foto Script --}}
+<script>
+    function previewFile() {
+        const file = document.getElementById("profile_picture").files[0];
+        const preview = document.getElementById("previewImage");
+
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+        }
+    }
+</script>
