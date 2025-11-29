@@ -69,7 +69,3 @@ Route::put('/pelanggan/{id}', [PelangganController::class, 'update'])->name('pel
 Route::resource('user', UserController::class);
 Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
-
-Route::resource('profile', ProfileController::class);
-Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
