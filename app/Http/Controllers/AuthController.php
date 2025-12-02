@@ -4,62 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    /**
-     * Tampilkan halaman login
-     */
     public function index()
     {
-        return view('login');
+        return view('auth.login');
     }
 
-    /**
-     * Proses login user
-     */
     public function login(Request $request)
     {
-        // Validasi input
-        $request->validate([
+        $input = $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:3',
-        ], [
-            'email.required' => 'Email wajib diisi.',
-            'email.email'    => 'Format email tidak valid.',
-            'password.required' => 'Password wajib diisi.',
+            'password' => 'required',
         ]);
 
-        // Cek apakah email terdaftar
-        $user = User::where('email', $request->email)->first();
-
-        // Jika user ditemukan dan password sesuai
-        if ($user && Hash::check($request->password, $user->password)) {
-
-            // Simpan session login
-            session([
-                'user_id'    => $user->id,
-                'user_name'  => $user->name,
-                'user_email' => $user->email,
-            ]);
-
-            // Arahkan ke halaman dashboard
-            return redirect()->route('dashboard')->with('success', 'Login berhasil!');
+        if (Auth::attempt($input)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/dashboard'); // Arahkan User Biasa
         }
 
-        // Jika gagal login
-        return redirect()->route('auth.index')->withErrors([
-            'login' => 'Email atau password salah.',
-        ])->withInput();
+        // Jika Login Gagal
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ]);
     }
 
-    /**
-     * Logout user
-     */
-    public function logout()
+    // 3. Proses Logout
+    public function logout(Request $request)
     {
-        session()->flush();
-        return redirect()->route('auth.index')->with('success', 'Logout berhasil!');
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }
